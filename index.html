@@ -29,6 +29,34 @@
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
+    .image-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* ✅ 在手機上會自動變成上下堆疊 */
+  gap: 20px; /* 圖片間距 */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.image-box {
+  max-width: 400px;
+  flex: 1 1 300px;
+  text-align: center;
+}
+
+.image-box img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.image-box figcaption {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 8px;
+}
     p {
       margin-bottom: 1.4em;
     }
@@ -87,11 +115,24 @@
 <p>After removing cases with missing data, the dataset includes 18,292 valid student reports and 17,513 valid parent reports. To ensure data reliability, I compare the household composition reported by students and parents, and retain only those families with matching reports. After cleaning and merging the relevant variables, the analytic sample includes 9,789 families with complete and internally consistent information. Among them 28 records are further removed since they don’t give clear indications about the living areas, ending up with 9761 records for regression. Among all these records, 52.2% are females while 47.8% are males, 51.5% are grade 7 while 48.5% are grade 9. The categories of frequency, parental education (the higher one of parents), living areas, the major living arrangements and their percentage can be found in pie charts and form below.</p>
   
 <h3>Visualizations of Key Variables</h3>
-
-<img src="Participation Frequency Distribution.png" />
-<img src="Parent Education (Higher One) Distribution.png" />
-<img src="Living Area Distribution.png" />
-<img src="Living Arrangement.png" />
+<p>
+    The categories of frequency, parental education (the higher one of parents),
+    living areas, the major living arrangements and their percentage can be found in pie charts below.
+</p>
+<div class="image-row">
+  <figure class="image-box">
+    <img src="Participation Frequency Distribution.png" alt="Participation Frequency">
+    <figcaption>Figure 1. Participation Frequency</figcaption>
+  </figure>
+  <figure class="image-box">
+    <img src="Parent Education (Higher One) Distribution.png" alt="Parent Education">
+    <figcaption>Figure 2. Parental Education (Higher One)</figcaption>
+  </figure>
+</div>
+<img src="Participation Frequency Distribution.png" alt="Participation Frequency Distribution" />
+<img src="Parent Education (Higher One) Distribution.png" alt="Parent Education (Higher One) Distribution" />
+<img src="Living Area Distribution.png" alt="Living Area Distribution" />
+<img src="Living Arrangement.png" alt="Living Arrangement" />
 
 <h2>OLS Model</h2>
   
