@@ -47,13 +47,13 @@
 
 <p><strong>Author:</strong> Yifang Xia</p>
 
-<h2>1. Why Does Museum Participation Matter?</h2>
+<h2>1. Why Museum Participation Matters?</h2>
   
 <p>Museum participation is not simply a matter of leisure—it is a form of learning, cultural identification, and long-term civic development. Sandell & Zimmerman (2017), Lin et al. (2023) highlight the potential of museum environments to shape reflective teaching and interactive learning. Holmes (2011), Acosta & Haden (2022) show that even brief museum-based tinkering experiences can generate gains in science learning and reflective thinking, particularly when scaffolded by facilitation and parents’ own education. Early museum visits foster children’s cognitive, creative, and social capacities (Cronin et al., 2020), and support learning transfer into the home environment, where caregivers mediate and extend the experience. Temple and Gan (2023) demonstrate that early involvement in cultural activities significantly predicts lifelong engagement, especially among men. Paredes (2016) illustrates immigrant identity may inspire engagement with museums as spaces for cultural validation and civic inclusion. In this way, museums act not only as educational tools but as vehicles of intergenerational transmission.</p>
 
 <p>More broadly, participation in cultural life carries long-term implications for wellbeing. Løkken et al. (2020) find that cultural engagement, including receptive activities like museum visits, is associated with reduced all-cause mortality.</p>
 
-<h2>2. What Influences Cultural Participation?</h2>
+<h2>2. What shapes participation—and what restricts it?</h2>
   
 <p>Despite their growing visibility as educational environments, museums remain unequally accessed and unevenly experienced. Across contexts, one predictor stands out: education, especially parental education, emerges as the most consistent determinant of cultural participation (Falk & Katz-Gerro, 2016; Zieba, 2017). Tertiary education increases both the probability and frequency of attendance (Muñiz et al., 2017; Suarez-Fernandez et al., 2020; Bone et al., 2021), often surpassing income or occupational class in explanatory power (Haag & Specht, 2022; Fiorillo & Ofria, 2024). Cultural engagement is shaped not only by access to resources, but by the ability to navigate and decode highbrow spaces (Brida et al., 2016). This cultural capital, deeply embedded in class-based educational trajectories, is transmitted through families over time (Váradi & Józsa, 2023; Crispin & Beck, 2025).</p>
 
@@ -63,20 +63,38 @@
 
 <p>At the macro level, Ateca-Amestoy & Prieto-Rodriguez (2024) confirm that education explains more inequality in cultural participation than race or geography. Importantly, these inequalities are mirrored in digital spaces, undermining the idea that online access resolves exclusion. Instead, cultural engagement, whether live or digital, remains clustered among the already-engaged.</p>
 
-<h2>3. The Case of China</h2>
+<h2>3. The Case of China: rapid growth, persistent inequality</h2>
   
 <p>Despite rapid museum development in China, access remains unequal. Free admission doesn’t guarantee inclusion: digital booking, lack of signage, or limited programs still exclude disadvantaged groups. Using CEPS data, this study explores how parental education shapes children’s museum participation across urban and rural regions.</p>
 
-<h2>4. Data and Methods</h2>
+<h1>Data Processing and Analysis</h1>
 <p>The study draws on CEPS data from 19,487 families. After cleaning, 9,761 records with full responses were analyzed. Variables include participation frequency, parental education, gender, grade, siblings, living arrangement, and urbanicity level.</p>
 
-<h3>Visualizations of Key Variables</h3>
-<img src="Participation Frequency Distribution.png" alt="Participation Frequency Distribution" />
-<img src="Parent Education (Higher One) Distribution.png" alt="Parental Education Distribution" />
-<img src="Living Area Distribution.png" alt="Living Area Distribution" />
+<p>This study uses data from the China Education Panel Survey (CEPS), which began in the 2013–2014 academic year with two baseline cohorts: 7th grade (the first year of junior high school) and 9th grade (the third year). Based on stratified sampling that accounted for factors such as the average education level of the population and the proportion of the floating population, CEPS selected 28 county-level units (counties, districts, or cities) across China as survey sites. Within these sites, 112 schools and 438 classes were randomly selected, and all students in those classes were surveyed, resulting in data from 19,487 entries.</p>
 
-<h2>5. Regression Models</h2>
-<p><strong>OLS Model:</strong> Parental education is positively associated with participation frequency. Living in rural areas, having siblings, or being in 9th grade reduce likelihood. Interaction terms suggest education mitigates rural disadvantage.</p>
+<p>To examine the relationship between students’ cultural participation and parental education, I use several variables drawn from both student and parent questionnaires:</p>
+
+    <p>1. Cultural participation frequency, measured by parental responses to the item “Visiting museums, zoos, science museums, etc.” in response to the question “How often did family members do the following together with this child over the past year?”</p>
+    <p>2. Student gender, parental education level, grade, and number of siblings, reported by students;</p>
+    <p>3. Residential area, reported by parents;</p>
+    <p>4. Living arrangements (with whom is the surveyed child living with), reported by both students and parents.</p>
+
+<p>Due to China’s hukou (household registration) system, it is common for children to remain in their registered hometowns while their parents migrate to urban areas for work. In such contexts, there may be inconsistencies between the number of siblings currently living with the surveyed child and the total number of siblings in the family. However, because this left-behind child situation is underreported—only 3,299 families formally noted it in the survey—and cannot be comprehensively captured, I use the total number of siblings reported by students, regardless of co-residence.</p>
+
+<p>After removing cases with missing data, the dataset includes 18,292 valid student reports and 17,513 valid parent reports. To ensure data reliability, I compare the household composition reported by students and parents, and retain only those families with matching reports. After cleaning and merging the relevant variables, the analytic sample includes 9,789 families with complete and internally consistent information. Among them 28 records are further removed since they don’t give clear indications about the living areas, ending up with 9761 records for regression. Among all these records, 52.2% are females while 47.8% are males, 51.5% are grade 7 while 48.5% are grade 9. The categories of frequency, parental education (the higher one of parents), living areas, the major living arrangements and their percentage can be found in pie charts and form below.</p>
+  
+<h3>Visualizations of Key Variables</h3>
+
+<img src="Participation Frequency Distribution.png" />
+<img src="Parent Education (Higher One) Distribution.png" />
+<img src="Living Area Distribution.png" />
+<img src="Living Arrangement.png" />
+
+<h2>OLS Model</h2>
+  
+<p></p>
+
+<p></p>
 
 <img src="OLS Prediction Line Chart.png" alt="OLS Model Prediction Line Chart" />
 
