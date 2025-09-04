@@ -1,0 +1,89 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Paths to the Museum</title>
+  <style>
+    body {
+      max-width: 900px;
+      width: 90%;
+      margin: 0 auto;
+      padding: 24px;
+      font-family: Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      background-color: #faf7f4;
+      color: #2e2e2e;
+    }
+    h1, h2, h3 {
+      color: #9c4a4a;
+      margin-top: 2em;
+      line-height: 1.8;
+    }
+    img {
+      display: block;
+      margin: 24px auto;
+      max-width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    p {
+      margin-bottom: 1.4em;
+    }
+    blockquote {
+      border-left: 4px solid #ccc;
+      padding-left: 1em;
+      color: #555;
+      font-style: italic;
+      margin: 1.5em 0;
+    }
+    a {
+      color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Paths to the Museum: Parental Education and Children’s Cultural Participation in China</h1>
+<p><strong>Author:</strong> Yifang Xia</p>
+
+<h2>1. Why Does Museum Participation Matter?</h2>
+<p>Museum visits are not just leisure activities—they help build cultural identity and foster long-term learning. Prior studies show that early exposure to museums enhances creativity, cognition, and social development. These benefits are often mediated by parental support and education.</p>
+
+<h2>2. What Influences Cultural Participation?</h2>
+<p>Parental education is the strongest predictor of cultural participation, even more than income or occupation. Families with higher education levels are more likely to understand and navigate museum spaces, and value the educational aspects of visits. In contrast, families with lower education levels may prioritize rest or play features. Geographic barriers such as rural location and digital divides also impact access.</p>
+
+<h2>3. The Case of China</h2>
+<p>Despite rapid museum development in China, access remains unequal. Free admission doesn’t guarantee inclusion: digital booking, lack of signage, or limited programs still exclude disadvantaged groups. Using CEPS data, this study explores how parental education shapes children’s museum participation across urban and rural regions.</p>
+
+<h2>4. Data and Methods</h2>
+<p>The study draws on CEPS data from 19,487 families. After cleaning, 9,761 records with full responses were analyzed. Variables include participation frequency, parental education, gender, grade, siblings, living arrangement, and urbanicity level.</p>
+
+<h3>Visualizations of Key Variables</h3>
+<img src="Participation Frequency Distribution.png" alt="Participation Frequency Distribution" />
+<img src="Parent Education (Higher One) Distribution.png" alt="Parental Education Distribution" />
+<img src="Living Area Distribution.png" alt="Living Area Distribution" />
+
+<h2>5. Regression Models</h2>
+<p><strong>OLS Model:</strong> Parental education is positively associated with participation frequency. Living in rural areas, having siblings, or being in 9th grade reduce likelihood. Interaction terms suggest education mitigates rural disadvantage.</p>
+
+<img src="OLS Prediction Line Chart.png" alt="OLS Model Prediction Line Chart" />
+
+<p><strong>Binary Logistic Model:</strong> High parental education increases the odds of higher participation. Female gender, no siblings, and urban residence also positively impact likelihood.</p>
+
+<img src="Binary Logistic Result.png" alt="Binary Logistic Result" />
+
+<p><strong>Multinomial Logistic Model:</strong> Parental education significantly predicts both moderate and high levels of participation compared to low. Urban students again show advantage.</p>
+
+<img src="Multinomial Logistic Result.png" alt="Multinomial Logistic Result" />
+
+<h2>6. Reflection on Interaction Terms</h2>
+<p>Initially, the interaction between parental education and urbanicity was statistically significant. After recoding and cleaning, this interaction weakened. This highlights how technical adjustments can obscure deeper social patterns in the data.</p>
+
+<h2>7. Conclusion</h2>
+<p>Parental education and geographic location are the most consistent predictors of cultural participation. Despite equalizing efforts like free admission, museums remain unequally accessed. Policymakers must address deeper structural barriers—supporting inclusive design, reducing academic pressure, and funding cultural access in underserved areas.</p>
+
+<h2>References</h2>
+<p>For full reference list, please refer to the original research document in this repository.</p>
+
+</body>
+</html>
