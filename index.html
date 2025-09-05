@@ -61,13 +61,27 @@
   margin-top: 8px;
 }
     
-.wide-img {
-  max-width: 800px;
+figure.full-width-image {
+  text-align: center;
+  margin: 40px auto;
+  max-width: 900px; /* 控制最大寬度 */
+}
+
+figure.full-width-image img {
   width: 100%;
   height: auto;
+  display: block;
+  margin: 0 auto;
   border: 1px solid #ccc;
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+figure.full-width-image figcaption {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #444;
+  font-family: Georgia, serif;
 }
     
     p {
@@ -159,13 +173,13 @@
 
 <p>For the primary independent variable, parental education, I created a new variable parent_edu by selecting the higher educational attainment between the mother and father. Educational qualifications were converted into years of schooling. Although Technical Secondary School, Vocational High School, and Senior High School differ in curriculum — emphasizing manual skills, applied theory, and academic preparation for Gaokao respectively — all were assigned 12 years, reflecting their standard program lengths. Similarly, I standardized junior college at 15 years (9 years basic + 3 years high school + 3 years college), bachelor’s degrees at 16 years, and master’s degrees at 19 years (assuming three years post-undergraduate), acknowledging that program durations may vary but choosing the most typical paths. The mean of parents’ years of schooling was 11.07 (SD = 3.11). Bar charts and box plots illustrate the distributions of participation frequency and parental education under these continuous assumptions.</p>
 
-<figure class="image-box">
-  <img class="wide-img" src="Histogram of Participation Frequency and Parental Education.png" alt="Histogram of Participation Frequency and Parental Education">
+<figure class="full-width-image">
+  <img src="Histogram of Participation Frequency and Parental Education.png" alt="Histogram of Participation Frequency and Parental Education">
   <figcaption>Figure 5. Histogram of Participation Frequency and Parental Education</figcaption>
 </figure>
 
-<figure class="image-box">
-  <img class="wide-img" src="Distribution of Participation Frequency and Parental Education.png" alt="Distribution of Participation Frequency and Parental Education">
+<figure class="full-width-image">
+  <img src="Distribution of Participation Frequency and Parental Education.png" alt="Distribution of Participation Frequency and Parental Education">
   <figcaption>Figure 6. Distribution of Participation Frequency and Parental Education</figcaption>
 </figure>
 
@@ -179,8 +193,8 @@
     <p>frequency = 2.006 + 0.0401 parent_edu - 0.4773 semi_urban - 0.9231 rural + 0.0293 parent_edu_semi_urban + 0.0391 parent_edu_rural + 0.0561 female - 0.1813 grade9 - 0.1251 has_siblings + 0.0655 standard_living</p>
 <p>An F-test comparing the two models yielded a p-value of 0.0006, indicating that the interaction terms significantly improve model fit. Thus, Model 2 is preferred. The line chart below illustrates predicted participation frequencies based on Model 2, focusing on variations by parental education, urbanicity level, sibling status, and grade. Urban = 1, 2, 3 separately stand for urban core, semi-urban and rural areas, circle line and triangle line separately stand for without and with siblings, solid line and dash line separately stand for grade 7 and grade 9.</p>
 
-<figure class="image-box">
-  <img class="wide-img" src="Predicted Participation Frequency by Parental Education.png" alt="Predicted Participation Frequency by Parental Education">
+<figure class="full-width-image">
+  <img src="Predicted Participation Frequency by Parental Education.png" alt="Predicted Participation Frequency by Parental Education">
   <figcaption>Figure 7. Predicted Participation Frequency by Parental Education</figcaption>
 </figure>
 
@@ -192,8 +206,8 @@
 
 <p>Parental education was categorized into three levels: (1) Low – junior high school and below (≤9 years), (2) Medium – technical secondary school, vocational high school, and senior high school (≈12 years), and (3) High – junior college and above (≥15 years). I assigned the higher of the two parents’ education levels as the final variable parent_edu, resulting in three dummy-coded categories: parent_edu_l, parent_edu_m, and parent_edu_h. This led to 4902 (50.2%), 2770 (28.3%), and 2089 (21.4%) falling into low, middle, high categories. The bar chart below presents the respective proportions of none or low participation and higher participation in these three parental education levels.</p>
 
-<figure class="image-box">
-  <img class="wide-img" src="Actual Binary Participation by Parental Education.png" alt="Actual Binary Participation by Parental Education">
+<figure class="full-width-image">
+  <img src="Actual Binary Participation by Parental Education.png" alt="Actual Binary Participation by Parental Education">
   <figcaption>Figure 8. Actual Binary Participation by Parental Education</figcaption>
 </figure>
 
@@ -213,8 +227,8 @@
 
 <p>For binary logistic regression, I recoded the dependent variable, cultural participation frequency, into a binary outcome: (1) Low participation — responses of “Never” and “Once a year,” occupying 67.5%, (2) Middle participation — responses of “Once every half year”, and (3) High participation — responses of “Once a month” or more frequently. Parental education and other variables were treated in the same way as in binary logistic regression. The bar chart below presents the respective proportions of low, middle, high participation in these three parental education levels.</p>
   
-<figure class="image-box">
-  <img class="wide-img" src="Actual Participation Distribution by Parental Education.png" alt="Actual Participation Distribution by Parental Education">
+<figure class="full-width-image">
+  <img src="Actual Participation Distribution by Parental Education.png" alt="Actual Participation Distribution by Parental Education">
   <figcaption>Figure 9. Actual Participation Distribution by Parental Education</figcaption>
 </figure>
 
