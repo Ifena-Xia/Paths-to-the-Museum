@@ -26,8 +26,9 @@
       --font-body:  'Source Serif 4', Georgia, serif;
       --font-head:  'Lora', Georgia, serif;
 
-      --measure:    68ch;
-      --narrow:     52ch;
+      /* Responsive container: min 320px, fluid, max 860px content + 2×5vw padding */
+      --container-max: 860px;
+      --container-pad: clamp(1.25rem, 5vw, 4rem);
     }
 
     /* ── Reset & base ── */
@@ -65,9 +66,9 @@
     }
 
     .site-header-inner {
-      max-width: 900px;
+      max-width: var(--container-max);
       margin: 0 auto;
-      padding: 2.5rem 1.5rem 2rem;
+      padding: 2.5rem var(--container-pad) 2rem;
     }
 
     .hero-image {
@@ -109,9 +110,9 @@
     .toc-nav {
       background: var(--rust-pale);
       border-left: 3px solid var(--rust-rule);
-      padding: 1.25rem 1.5rem;
+      padding: 1.25rem var(--container-pad);
       margin: 2.5rem auto 0;
-      max-width: 900px;
+      max-width: var(--container-max);
     }
 
     .toc-nav h2 {
@@ -143,9 +144,9 @@
 
     /* ── Main content ── */
     main {
-      max-width: 900px;
+      max-width: var(--container-max);
       margin: 0 auto;
-      padding: 3rem 1.5rem 4rem;
+      padding: 3rem var(--container-pad) 4rem;
     }
 
     /* Section spacing */
@@ -180,7 +181,6 @@
 
     /* Body text */
     p {
-      max-width: var(--measure);
       margin-bottom: 1.2em;
       hyphens: auto;
     }
@@ -218,7 +218,6 @@
       margin-top: 0.5rem;
       font-style: italic;
       line-height: 1.5;
-      max-width: var(--measure);
     }
 
     /* Two-column image row */
@@ -252,7 +251,7 @@
       font-size: 0.78rem;
       color: var(--caption);
       text-align: right;
-      padding: 0.35rem 1.5rem;
+      padding: 0.35rem var(--container-pad);
       background: var(--surface);
       font-style: italic;
     }
@@ -285,7 +284,6 @@
     .var-list li {
       margin-bottom: 0.3rem;
       font-size: 0.93rem;
-      max-width: var(--measure);
     }
 
     /* ── Model equation block ── */
@@ -308,7 +306,6 @@
       border-radius: 4px;
       padding: 1.25rem 1.5rem;
       margin: 2rem 0;
-      max-width: var(--measure);
     }
     .finding-box p { margin-bottom: 0; font-size: 0.95rem; }
 
