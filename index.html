@@ -1,288 +1,596 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Paths to the Museum</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paths to the Museum – Yifang Xia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet" />
+
   <style>
+    /* ── Design tokens ── */
+    :root {
+      --rust:       #8b3a2e;
+      --rust-light: #b85c4a;
+      --rust-pale:  #f5ede9;
+      --rust-rule:  #d4a097;
+      --ink:        #1e1a17;
+      --ink-mid:    #3d3530;
+      --ink-muted:  #6b5f58;
+      --page:       #faf7f4;
+      --surface:    #f2ede8;
+      --border:     #e0d4cc;
+      --caption:    #8c7a72;
+
+      --font-body:  'Source Serif 4', Georgia, serif;
+      --font-head:  'Lora', Georgia, serif;
+
+      --measure:    68ch;
+      --narrow:     52ch;
+    }
+
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 17px; scroll-behavior: smooth; }
+
     body {
-      max-width: 800px;
-      width: 90%;
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--ink-mid);
+      background-color: var(--page);
+    }
+
+    /* ── Skip nav (accessibility) ── */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--rust);
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      z-index: 100;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Layout shell ── */
+    .site-header {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .site-header-inner {
+      max-width: 900px;
       margin: 0 auto;
-      padding: 32px 24px;
-      font-family: Georgia, serif;
-      font-size: 18px;
-      line-height: 1.8;
-      background-color: #faf7f4;
-      color: #2e2e2e;
+      padding: 2.5rem 1.5rem 2rem;
     }
-    h1, h2, h3 {
-      color: #9c4a4a;
-      margin-top: 2em;
-      line-height: 1.8;
-    }
-    img {
+
+    .hero-image {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
       display: block;
-      margin: 24px auto;
-      max-width: 1000px;
+      border-bottom: 3px solid var(--rust);
+    }
+
+    .meta-line {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--rust-light);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--rust);
+      margin-bottom: 0.5rem;
+    }
+
+    .byline {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--ink-muted);
+      font-style: italic;
+    }
+
+    /* ── Table of contents ── */
+    .toc-nav {
+      background: var(--rust-pale);
+      border-left: 3px solid var(--rust-rule);
+      padding: 1.25rem 1.5rem;
+      margin: 2.5rem auto 0;
+      max-width: 900px;
+    }
+
+    .toc-nav h2 {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--rust-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .toc-nav ol {
+      list-style: decimal;
+      padding-left: 1.25rem;
+      columns: 2;
+      column-gap: 2rem;
+    }
+
+    .toc-nav li { font-size: 0.88rem; line-height: 1.7; color: var(--ink-mid); }
+
+    .toc-nav a {
+      color: var(--rust);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .toc-nav a:hover { border-color: var(--rust-light); }
+
+    /* ── Main content ── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    /* Section spacing */
+    section {
+      margin-bottom: 3.5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    section:last-of-type { border-bottom: none; }
+
+    /* Headings */
+    h2 {
+      font-family: var(--font-head);
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      font-weight: 600;
+      color: var(--rust);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-top: 0.25rem;
+      border-top: 2px solid var(--rust-rule);
+      display: inline-block;
+    }
+
+    h3 {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-top: 2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    /* Body text */
+    p {
+      max-width: var(--measure);
+      margin-bottom: 1.2em;
+      hyphens: auto;
+    }
+
+    /* Code / inline formula fragments */
+    .equation {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      font-family: 'Georgia', serif;
+      color: var(--ink);
+      margin: 0.5rem 0 1.25rem;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    /* ── Figures ── */
+    figure {
+      margin: 2rem auto;
+    }
+
+    figure img {
+      display: block;
       width: 100%;
       height: auto;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      border-radius: 4px;
     }
-    .image-row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap; 
-  gap: 20px; 
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
 
-.image-box {
-  max-width: 400px;
-  flex: 1 1 300px;
-  text-align: center;
-}
-
-.image-box img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 24px auto;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.image-box figcaption {
-  font-size: 0.9em;
-  color: #666;
-  margin-top: 8px;
-}
-    
-figure.full-width-image {
-  width: 100%;
-  max-width: 900px; 
-  margin: 24px auto;
-  text-align: center;
-}
-
-figure.full-width-image img {
-  width: 100%;
-  height: auto;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-figure.full-width-image figcaption {
-  font-size: 0.95rem;
-  color: #555;
-  margin-top: 8px;
-  text-align: center;
-}
-    
-    p {
-      margin-bottom: 1.4em;
-    }
-    blockquote {
-      border-left: 4px solid #ccc;
-      padding-left: 1em;
-      color: #555;
+    figcaption {
+      font-size: 0.8rem;
+      color: var(--caption);
+      margin-top: 0.5rem;
       font-style: italic;
-      margin: 1.5em 0;
+      line-height: 1.5;
+      max-width: var(--measure);
     }
-    a {
-      color: #2980b9;
+
+    /* Two-column image row */
+    .image-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+
+    .image-row figure { margin: 0; }
+
+    /* Three-column formula row */
+    .formula-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+      align-items: start;
+    }
+
+    .formula-row figure { margin: 0; }
+    .formula-row figcaption { display: none; }
+
+    /* Full-width figure */
+    .figure-full { max-width: 100%; }
+    .figure-full figcaption { margin: 0.5rem auto 0; }
+
+    /* Small hero caption */
+    .hero-caption {
+      font-size: 0.78rem;
+      color: var(--caption);
+      text-align: right;
+      padding: 0.35rem 1.5rem;
+      background: var(--surface);
+      font-style: italic;
+    }
+
+    /* ── Inline formula images ── */
+    .formula-img {
+      display: block;
+      max-width: 600px;
+      width: 100%;
+      height: auto;
+      margin: 1rem 0 1.5rem;
+      border: none;
+    }
+
+    /* ── Blockquote (data notes) ── */
+    blockquote {
+      border-left: 3px solid var(--rust-rule);
+      padding: 0.5rem 1rem;
+      margin: 1.5rem 0;
+      color: var(--ink-muted);
+      font-style: italic;
+      font-size: 0.93rem;
+    }
+
+    /* ── Data label list ── */
+    .var-list {
+      padding-left: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .var-list li {
+      margin-bottom: 0.3rem;
+      font-size: 0.93rem;
+      max-width: var(--measure);
+    }
+
+    /* ── Model equation block ── */
+    .model-eq {
+      background: var(--rust-pale);
+      border-left: 3px solid var(--rust-rule);
+      padding: 0.9rem 1.25rem;
+      font-size: 0.88rem;
+      font-family: 'Georgia', serif;
+      line-height: 1.6;
+      color: var(--ink);
+      margin: 1.25rem 0 1.75rem;
+      overflow-x: auto;
+    }
+
+    /* ── Conclusion highlight ── */
+    .finding-box {
+      background: var(--rust-pale);
+      border: 1px solid var(--rust-rule);
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+      max-width: var(--measure);
+    }
+    .finding-box p { margin-bottom: 0; font-size: 0.95rem; }
+
+    /* ── References ── */
+    .references-link {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--rust);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rust-rule);
+      padding-bottom: 1px;
+      transition: color 0.15s;
+    }
+    .references-link:hover { color: var(--rust-light); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--caption);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .toc-nav ol { columns: 1; }
+      h1 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
-  <figure class="full-width-image">
-  <img src="Path-museum.png" alt="Path-museum" />
-  <figcaption style="font-size:0.9em; color:#888;">
-    Captured by my friend Jingyuan Liu – thank you!
-  </figcaption>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<!-- ── Hero image ── -->
+<figure style="margin:0;">
+  <img class="hero-image" src="Path-museum.png" alt="A path leading toward the entrance of a museum" />
 </figure>
-<h1>Paths to the Museum: Parental Education and Children’s Cultural Participation in China</h1>
+<p class="hero-caption">Captured by my friend Jingyuan Liu – thank you!</p>
 
-<p><strong>Author:</strong> Yifang Xia</p>
+<!-- ── Site header ── -->
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <p class="meta-line">Research Essay &nbsp;·&nbsp; Sociology of Culture &nbsp;·&nbsp; China</p>
+    <h1>Paths to the Museum: Parental Education and Children's Cultural Participation in China</h1>
+    <p class="byline">Yifang Xia</p>
+  </div>
+</header>
 
-<h2>1. Why Museum Participation Matters?</h2>
-  
-<p>Museum participation is not simply a matter of leisure—it is a form of learning, cultural identification, and long-term civic development. Sandell & Zimmerman (2017), Lin et al. (2023) highlight the potential of museum environments to shape reflective teaching and interactive learning. Holmes (2011), Acosta & Haden (2022) show that even brief museum-based tinkering experiences can generate gains in science learning and reflective thinking, particularly when scaffolded by facilitation and parents’ own education. Early museum visits foster children’s cognitive, creative, and social capacities (Cronin et al., 2020), and support learning transfer into the home environment, where caregivers mediate and extend the experience. Temple and Gan (2023) demonstrate that early involvement in cultural activities significantly predicts lifelong engagement, especially among men. Paredes (2016) illustrates immigrant identity may inspire engagement with museums as spaces for cultural validation and civic inclusion. In this way, museums act not only as educational tools but as vehicles of intergenerational transmission.</p>
+<!-- ── Table of contents ── -->
+<nav class="toc-nav" aria-label="Table of contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#why-museums">Why Museum Participation Matters</a></li>
+    <li><a href="#what-shapes">What Shapes Participation</a></li>
+    <li><a href="#china-case">The Case of China</a></li>
+    <li><a href="#data">Data Processing and Analysis</a></li>
+    <li><a href="#ols">OLS Model</a></li>
+    <li><a href="#binary-logit">Binary Logistic Model</a></li>
+    <li><a href="#multinomial">Multinomial Logistic Model</a></li>
+    <li><a href="#interaction">Reflection on Interaction Terms</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
 
-<p>More broadly, participation in cultural life carries long-term implications for wellbeing. Løkken et al. (2020) find that cultural engagement, including receptive activities like museum visits, is associated with reduced all-cause mortality.</p>
+<!-- ── Main ── -->
+<main id="main-content">
 
-<h2>2. What shapes participation—and what restricts it?</h2>
-  
-<p>Despite their growing visibility as educational environments, museums remain unequally accessed and unevenly experienced. Across contexts, one predictor stands out: education, especially parental education, emerges as the most consistent determinant of cultural participation (Falk & Katz-Gerro, 2016; Zieba, 2017). Tertiary education increases both the probability and frequency of attendance (Muñiz et al., 2017; Suarez-Fernandez et al., 2020; Bone et al., 2021), often surpassing income or occupational class in explanatory power (Haag & Specht, 2022; Fiorillo & Ofria, 2024). Cultural engagement is shaped not only by access to resources, but by the ability to navigate and decode highbrow spaces (Brida et al., 2016). This cultural capital, deeply embedded in class-based educational trajectories, is transmitted through families over time (Váradi & Józsa, 2023; Crispin & Beck, 2025).</p>
+  <!-- 1 -->
+  <section id="why-museums">
+    <h2>1. Why Museum Participation Matters</h2>
 
-<p>Studies have extended this insight to children’s participation in cultural life. Mak and Fancourt (2021) show that out-of-school participation in arts and cultural activities is strongly predicted by parents’ own cultural engagement, neighborhood deprivation, and socioeconomic status. While school-based programs may flatten inequality temporarily, family influence remains the dominant force in long-term participation (Temple & Gan, 2023). Borrione et al. (2021) further observe that frequent-attending families tend to value museum staff expertise, educational content, and learning outcomes, while infrequent-attending families prioritize rest areas, multimedia, and play, suggesting that class-based orientations influence not just whether, but how families engage with museums.</p>
+    <p>Museum participation is not simply a matter of leisure — it is a form of learning, cultural identification, and long-term civic development. Sandell &amp; Zimmerman (2017) and Lin et al. (2023) highlight the potential of museum environments to shape reflective teaching and interactive learning. Holmes (2011) and Acosta &amp; Haden (2022) show that even brief museum-based tinkering experiences can generate gains in science learning and reflective thinking, particularly when scaffolded by facilitation and parents' own education. Early museum visits foster children's cognitive, creative, and social capacities (Cronin et al., 2020), and support learning transfer into the home environment, where caregivers mediate and extend the experience. Temple and Gan (2023) demonstrate that early involvement in cultural activities significantly predicts lifelong engagement, especially among men. Paredes (2016) illustrates that immigrant identity may inspire engagement with museums as spaces for cultural validation and civic inclusion. In this way, museums act not only as educational tools but as vehicles of intergenerational transmission.</p>
 
-<p>Geography compounds these divides. Spatial barriers, including rural residence, neighborhood deprivation, and infrastructure scarcity, affect both access and perceived cultural belonging (Mak et al., 2021; Rodríguez-Puello & Iturra, 2024). Intra-household studies like Ateca-Amestoy and Ugidos (2021) reveal that women’s participation in cultural life is further shaped by childcare responsibilities and mobility constraints, suggesting that structural inequalities—not just preferences—govern family engagement with museums. Olivares and Piatak (2022) add a racial lens, showing that Black Americans are significantly less likely to attend museums than white peers, even after controlling for education and income. Yet Latinx and Black respondents are more likely to cite cultural heritage as a motivation for attendance, emphasizing the importance of representation and institutional culture.</p>
+    <p>More broadly, participation in cultural life carries long-term implications for wellbeing. Løkken et al. (2020) find that cultural engagement, including receptive activities like museum visits, is associated with reduced all-cause mortality.</p>
+  </section>
 
-<p>At the macro level, Ateca-Amestoy & Prieto-Rodriguez (2024) confirm that education explains more inequality in cultural participation than race or geography. Importantly, these inequalities are mirrored in digital spaces, undermining the idea that online access resolves exclusion. Instead, cultural engagement, whether live or digital, remains clustered among the already-engaged.</p>
+  <!-- 2 -->
+  <section id="what-shapes">
+    <h2>2. What Shapes Participation — and What Restricts It</h2>
 
-<h2>3. The Case of China: rapid growth, persistent inequality</h2>
-  
-<p>In China, museum development has accelerated rapidly (Zhang & Courty, 2021). Admission has been widely waived, public programming has expanded, and cultural heritage is increasingly tied to state identity (Lu, 2014; Gideon, 2019; Lin, 2023, 2024). Yet, who accesses museums remains sharply unequal. Rao et al. (2022) show that maternal education is a significant predictor of children’s early development and cognitive stimulation—particularly in urban settings. Li (2024) observes that even where access is nominally free, high-quality engagement is constrained by design. Limited reservation quotas, underdeveloped signage, digital-first booking systems, and insufficiently inclusive programming impede access—especially for families with lower levels of education or digital literacy. Zhao et al. (2024) further note that recognition of museums’ public value is most common among highly educated users and professionals, raising the question of whether museum participation is equitably distributed across social groups.</p>
+    <p>Despite their growing visibility as educational environments, museums remain unequally accessed and unevenly experienced. Across contexts, one predictor stands out: education — especially parental education — emerges as the most consistent determinant of cultural participation (Falk &amp; Katz-Gerro, 2016; Zieba, 2017). Tertiary education increases both the probability and frequency of attendance (Muñiz et al., 2017; Suarez-Fernandez et al., 2020; Bone et al., 2021), often surpassing income or occupational class in explanatory power (Haag &amp; Specht, 2022; Fiorillo &amp; Ofria, 2024). Cultural engagement is shaped not only by access to resources, but by the ability to navigate and decode highbrow spaces (Brida et al., 2016). This cultural capital, deeply embedded in class-based educational trajectories, is transmitted through families over time (Váradi &amp; Józsa, 2023; Crispin &amp; Beck, 2025).</p>
 
-<p>These barriers are particularly urgent given museums’ dual status in China as both state-sanctioned patriotic spaces and emerging sites of experiential learning and social mobility. Yet, large-scale quantitative studies of children’s museum attendance remain rare. While many studies investigate cultural nationalism, digital communication, or museum governance (Bolo & Zhang, 2017), few explore how intergenerational inequality—especially via parental education—shapes actual access to cultural institutions.</p> 
-  
-<h1>Data Processing and Analysis</h1>
-  
-<p>The study draws on CEPS data from 19,487 families. After cleaning, 9,761 records with full responses were analyzed. Variables include participation frequency, parental education, gender, grade, siblings, living arrangement, and urbanicity level.</p>
+    <p>Studies have extended this insight to children's participation in cultural life. Mak and Fancourt (2021) show that out-of-school participation in arts and cultural activities is strongly predicted by parents' own cultural engagement, neighborhood deprivation, and socioeconomic status. While school-based programs may flatten inequality temporarily, family influence remains the dominant force in long-term participation (Temple &amp; Gan, 2023). Borrione et al. (2021) further observe that frequent-attending families tend to value museum staff expertise, educational content, and learning outcomes, while infrequent-attending families prioritize rest areas, multimedia, and play — suggesting that class-based orientations influence not just whether, but how families engage with museums.</p>
 
-<p>This study uses data from the China Education Panel Survey (CEPS), which began in the 2013–2014 academic year with two baseline cohorts: 7th grade (the first year of junior high school) and 9th grade (the third year). Based on stratified sampling that accounted for factors such as the average education level of the population and the proportion of the floating population, CEPS selected 28 county-level units (counties, districts, or cities) across China as survey sites. Within these sites, 112 schools and 438 classes were randomly selected, and all students in those classes were surveyed, resulting in data from 19,487 entries.</p>
+    <p>Geography compounds these divides. Spatial barriers, including rural residence, neighborhood deprivation, and infrastructure scarcity, affect both access and perceived cultural belonging (Mak et al., 2021; Rodríguez-Puello &amp; Iturra, 2024). Intra-household studies like Ateca-Amestoy and Ugidos (2021) reveal that women's participation in cultural life is further shaped by childcare responsibilities and mobility constraints, suggesting that structural inequalities — not just preferences — govern family engagement with museums. Olivares and Piatak (2022) add a racial lens, showing that Black Americans are significantly less likely to attend museums than white peers, even after controlling for education and income. Yet Latinx and Black respondents are more likely to cite cultural heritage as a motivation for attendance, emphasizing the importance of representation and institutional culture.</p>
 
-<p>To examine the relationship between students’ cultural participation and parental education, I use several variables drawn from both student and parent questionnaires:</p>
+    <p>At the macro level, Ateca-Amestoy &amp; Prieto-Rodriguez (2024) confirm that education explains more inequality in cultural participation than race or geography. Importantly, these inequalities are mirrored in digital spaces, undermining the idea that online access resolves exclusion. Instead, cultural engagement — whether live or digital — remains clustered among the already-engaged.</p>
+  </section>
 
-    <p>1. Cultural participation frequency, measured by parental responses to the item “Visiting museums, zoos, science museums, etc.” in response to the question “How often did family members do the following together with this child over the past year?”</p>
-    <p>2. Student gender, parental education level, grade, and number of siblings, reported by students;</p>
-    <p>3. Residential area, reported by parents;</p>
-    <p>4. Living arrangements (with whom is the surveyed child living with), reported by both students and parents.</p>
+  <!-- 3 -->
+  <section id="china-case">
+    <h2>3. The Case of China: Rapid Growth, Persistent Inequality</h2>
 
-<p>Due to China’s hukou (household registration) system, it is common for children to remain in their registered hometowns while their parents migrate to urban areas for work. In such contexts, there may be inconsistencies between the number of siblings currently living with the surveyed child and the total number of siblings in the family. However, because this left-behind child situation is underreported—only 3,299 families formally noted it in the survey—and cannot be comprehensively captured, I use the total number of siblings reported by students, regardless of co-residence.</p>
+    <p>In China, museum development has accelerated rapidly (Zhang &amp; Courty, 2021). Admission has been widely waived, public programming has expanded, and cultural heritage is increasingly tied to state identity (Lu, 2014; Gideon, 2019; Lin, 2023, 2024). Yet who accesses museums remains sharply unequal. Rao et al. (2022) show that maternal education is a significant predictor of children's early development and cognitive stimulation — particularly in urban settings. Li (2024) observes that even where access is nominally free, high-quality engagement is constrained by design. Limited reservation quotas, underdeveloped signage, digital-first booking systems, and insufficiently inclusive programming impede access — especially for families with lower levels of education or digital literacy. Zhao et al. (2024) further note that recognition of museums' public value is most common among highly educated users and professionals, raising the question of whether museum participation is equitably distributed across social groups.</p>
 
-<p>After removing cases with missing data, the dataset includes 18,292 valid student reports and 17,513 valid parent reports. To ensure data reliability, I compare the household composition reported by students and parents, and retain only those families with matching reports. After cleaning and merging the relevant variables, the analytic sample includes 9,789 families with complete and internally consistent information. Among them 28 records are further removed since they don’t give clear indications about the living areas, ending up with 9761 records for regression. Among all these records, 52.2% are females while 47.8% are males, 51.5% are grade 7 while 48.5% are grade 9. The categories of frequency, parental education (the higher one of parents), living areas, the major living arrangements and their percentage can be found in pie charts and form below.</p>
-  
-<h3>Visualizations of Key Variables</h3>
-<p>
-    The categories of frequency, parental education (the higher one of parents),
-    living areas, the major living arrangements and their percentage can be found in pie charts below.
-</p>
-<div class="image-row">
-  <figure class="image-box">
-    <img src="Participation Frequency Distribution.png" alt="Participation Frequency">
-    <figcaption>Figure 1. Participation Frequency</figcaption>
-  </figure>
-  <figure class="image-box">
-    <img src="Parent Education (Higher One) Distribution.png" alt="Parent Education">
-    <figcaption>Figure 2. Parental Education (Higher One)</figcaption>
-  </figure>
-</div>
-  <div class="image-row">
-  <figure class="image-box">
-    <img src="Living Area Distribution.png" alt="Living Area Distribution">
-    <figcaption>Figure 3. Living Area Distribution</figcaption>
-  </figure>
-  <figure class="image-box">
-    <img src="Living Arrangement.png" alt="Living Arrangement">
-    <figcaption>Figure 4. living Arrangement</figcaption>
-  </figure>
-</div>
+    <p>These barriers are particularly urgent given museums' dual status in China as both state-sanctioned patriotic spaces and emerging sites of experiential learning and social mobility. Yet large-scale quantitative studies of children's museum attendance remain rare. While many studies investigate cultural nationalism, digital communication, or museum governance (Bolo &amp; Zhang, 2017), few explore how intergenerational inequality — especially via parental education — shapes actual access to cultural institutions.</p>
+  </section>
 
-<h2>OLS Model</h2>
-  
-<p>To prepare the dataset for ordinary least squares (OLS) regression, I transformed both the dependent and key independent variables into numeric formats. The dependent variable, cultural participation frequency, was recoded from six ordered categories (“Never” to “More than once a week”) into an ordinal numeric scale ranging from 1 to 6. </p>
+  <!-- 4 Data -->
+  <section id="data">
+    <h2>4. Data Processing and Analysis</h2>
 
-<p>For the primary independent variable, parental education, I created a new variable parent_edu by selecting the higher educational attainment between the mother and father. Educational qualifications were converted into years of schooling. Although Technical Secondary School, Vocational High School, and Senior High School differ in curriculum — emphasizing manual skills, applied theory, and academic preparation for Gaokao respectively — all were assigned 12 years, reflecting their standard program lengths. Similarly, I standardized junior college at 15 years (9 years basic + 3 years high school + 3 years college), bachelor’s degrees at 16 years, and master’s degrees at 19 years (assuming three years post-undergraduate), acknowledging that program durations may vary but choosing the most typical paths. The mean of parents’ years of schooling was 11.07 (SD = 3.11). Bar charts and box plots illustrate the distributions of participation frequency and parental education under these continuous assumptions.</p>
+    <p>This study draws on data from the China Education Panel Survey (CEPS), which began in the 2013–2014 academic year with two baseline cohorts: 7th grade and 9th grade. Based on stratified sampling that accounted for the average education level of the population and the proportion of the floating population, CEPS selected 28 county-level units across China. Within these, 112 schools and 438 classes were randomly selected, yielding data from 19,487 students. After removing cases with missing or inconsistent information, the analytic sample includes 9,761 families with complete, internally consistent records.</p>
 
-<figure class="full-width-image">
-  <img src="Histogram of Participation Frequency and Parental Education.png" alt="Histogram of Participation Frequency and Parental Education">
-  <figcaption>Figure 5. Histogram of Participation Frequency and Parental Education</figcaption>
-</figure>
+    <blockquote>Due to China's hukou (household registration) system, it is common for children to remain in registered hometowns while parents migrate for work. Because this left-behind arrangement is underreported in the survey (only 3,299 families formally noted it), sibling counts reported by students are used regardless of co-residence.</blockquote>
 
-<figure class="full-width-image">
-  <img src="Distribution of Participation Frequency and Parental Education.png" alt="Distribution of Participation Frequency and Parental Education">
-  <figcaption>Figure 6. Distribution of Participation Frequency and Parental Education</figcaption>
-</figure>
+    <p>Key variables include:</p>
+    <ol class="var-list">
+      <li>Cultural participation frequency: parental responses to "Visiting museums, zoos, science museums, etc." over the past year, on a six-point scale from "Never" to "More than once a week."</li>
+      <li>Parental education: the higher attainment of mother or father, converted to years of schooling. Mean: 11.07 years (SD = 3.11).</li>
+      <li>Gender, grade, and number of siblings: reported by students.</li>
+      <li>Residential area (urbanicity): reported by parents, recoded to urban core, semi-urban, and rural.</li>
+      <li>Living arrangement (standard_living): 1 if living with both parents (with or without grandparents), 0 otherwise.</li>
+    </ol>
 
-<p>Several categorical variables were recoded into binary dummy variables to facilitate regression analysis. Gender was coded as female (1 = female, 0 = male). Grade was captured by grade9 (1 = ninth grade, 0 = seventh grade).  To better reflect the gradient of urbanicity in the sample, I recoded the original living area categories into a new variable, urbanicity_level, with three levels: (1) Urban core (36.3%), including respondents living in the central area of a city or county; (2) Semi-urban (28.1%), combining the outskirts of cities/counties, rural-urban continuum areas, and towns outside city boundaries; and (3) Rural (35.6%), representing those living in designated rural areas. As stated above, the small number of observations categorized as “Other” were excluded from this classification due to ambiguity. This categorization allows us to examine how varying degrees of urbanicity relate to other social or behavioral outcomes. To account for family size, I coded has_siblings as 1 for students with one or more siblings, which includes 49.7% of the sample, and 0 for students with no siblings (50.3%). For household composition, I created standard_living, coded as 1 for students who live either with both their mother and father or with mother, father, and grandparents — a grouping that comprises 48% of the sample — and 0 for all other combinations of cohabitation.</p> 
+    <p>Among all records, 52.2% are female and 47.8% male; 51.5% are in grade 7 and 48.5% in grade 9. The distributions of key variables are presented in the figures below.</p>
 
-<p>Below is the resulting OLS Model 1 for estimated participation frequency:</p>
+    <h3>Visualizations of Key Variables</h3>
 
-    <p>frequency = 1.784 + 0.0578 parent_edu - 0.1233 semi_urban - 0.4987 rural + 0.0556 female - 0.1863 grade9 - 0.1222 has_siblings + 0.0622 standard_living</p>
+    <div class="image-row">
+      <figure>
+        <img src="Participation Frequency Distribution.png" alt="Pie chart showing that 67.5% of students never or rarely visit cultural institutions" />
+        <figcaption>Figure 1. Participation frequency distribution. The majority of students fall in the "never" or "once a year" category.</figcaption>
+      </figure>
+      <figure>
+        <img src="Parent Education (Higher One) Distribution.png" alt="Pie chart showing the distribution of the higher of the two parents' educational levels" />
+        <figcaption>Figure 2. Parental education distribution (higher of the two parents).</figcaption>
+      </figure>
+    </div>
 
-<p>Given previous studies suggesting that the relationship between parental education and participation may vary by region, I introduced interaction terms between parental education and urbanicity levels. Model 2 estimates:</p>
-    <p>frequency = 2.006 + 0.0401 parent_edu - 0.4773 semi_urban - 0.9231 rural + 0.0293 parent_edu_semi_urban + 0.0391 parent_edu_rural + 0.0561 female - 0.1813 grade9 - 0.1251 has_siblings + 0.0655 standard_living</p>
-<p>An F-test comparing the two models yielded a p-value of 0.0006, indicating that the interaction terms significantly improve model fit. Thus, Model 2 is preferred. The line chart below illustrates predicted participation frequencies based on Model 2, focusing on variations by parental education, urbanicity level, sibling status, and grade. Urban = 1, 2, 3 separately stand for urban core, semi-urban and rural areas, circle line and triangle line separately stand for without and with siblings, solid line and dash line separately stand for grade 7 and grade 9.</p>
+    <div class="image-row">
+      <figure>
+        <img src="Living Area Distribution.png" alt="Pie chart showing roughly equal thirds across urban core, semi-urban, and rural areas" />
+        <figcaption>Figure 3. Living area distribution: 36.3% urban core, 28.1% semi-urban, 35.6% rural.</figcaption>
+      </figure>
+      <figure>
+        <img src="Living Arrangement.png" alt="Pie chart showing living arrangement categories" />
+        <figcaption>Figure 4. Living arrangement distribution. Standard (both parents present) accounts for 48% of the sample.</figcaption>
+      </figure>
+    </div>
 
-<figure class="full-width-image">
-  <img src="Predicted Participation Frequency by Parental Education.png" alt="Predicted Participation Frequency by Parental Education">
-  <figcaption>Figure 7. Predicted Participation Frequency by Parental Education</figcaption>
-</figure>
+    <figure class="figure-full">
+      <img src="Histogram of Participation Frequency and Parental Education.png" alt="Histograms showing skewed distributions for both participation frequency and parental education" />
+      <figcaption>Figure 5. Histograms of participation frequency and parental education.</figcaption>
+    </figure>
 
-<p>From Model 2, we observe that participation frequency decreases notably as urbanicity declines. However, higher parental education partially offsets this regional disadvantage: its positive influence on participation becomes stronger in lower-urbanicity areas. Additionally, female students, 7th graders, only children, and those in standard family structures are predicted to have higher participation frequencies.</p>
+    <figure class="figure-full">
+      <img src="Distribution of Participation Frequency and Parental Education.png" alt="Box plots or distribution plots for participation frequency and parental education by group" />
+      <figcaption>Figure 6. Distribution of participation frequency and parental education.</figcaption>
+    </figure>
+  </section>
 
-<h2>Binary Logistic Model</h2> 
+  <!-- 5 OLS -->
+  <section id="ols">
+    <h2>5. OLS Model</h2>
 
-<p>For binary logistic regression, I recoded the dependent variable, cultural participation frequency, into a binary outcome: responses of “Never” and “Once a year,” occupying 67.5%, were coded as 0 (none or low participation), and all other frequencies were coded as 1 (higher participation).</p>
+    <p>Participation frequency was recoded from six ordered categories into a numeric scale from 1 to 6. Parental education was expressed as years of schooling. Several categorical variables were recoded as binary dummies: <em>female</em> (1 = female), <em>grade9</em> (1 = ninth grade), <em>has_siblings</em> (1 = one or more siblings; 49.7% of sample), and <em>standard_living</em> (1 = both parents present, with or without grandparents; 48% of sample). Urbanicity was recoded to three levels: urban core (36.3%), semi-urban (28.1%), and rural (35.6%).</p>
 
-<p>Parental education was categorized into three levels: (1) Low – junior high school and below (≤9 years), (2) Medium – technical secondary school, vocational high school, and senior high school (≈12 years), and (3) High – junior college and above (≥15 years). I assigned the higher of the two parents’ education levels as the final variable parent_edu, resulting in three dummy-coded categories: parent_edu_l, parent_edu_m, and parent_edu_h. This led to 4902 (50.2%), 2770 (28.3%), and 2089 (21.4%) falling into low, middle, high categories. The bar chart below presents the respective proportions of none or low participation and higher participation in these three parental education levels.</p>
+    <p><strong>Model 1</strong> (no interaction terms):</p>
+    <div class="model-eq">
+      frequency = 1.784 + 0.0578 parent_edu &minus; 0.1233 semi_urban &minus; 0.4987 rural<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0.0556 female &minus; 0.1863 grade9 &minus; 0.1222 has_siblings + 0.0622 standard_living
+    </div>
 
-<figure class="full-width-image">
-  <img src="Actual Binary Participation by Parental Education.png" alt="Actual Binary Participation by Parental Education">
-  <figcaption>Figure 8. Actual Binary Participation by Parental Education</figcaption>
-</figure>
+    <p>Given prior literature suggesting the relationship between parental education and participation may vary by region, interaction terms between parental education and urbanicity level were introduced. <strong>Model 2</strong>:</p>
+    <div class="model-eq">
+      frequency = 2.006 + 0.0401 parent_edu &minus; 0.4773 semi_urban &minus; 0.9231 rural<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0.0293 parent_edu×semi_urban + 0.0391 parent_edu×rural<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0.0561 female &minus; 0.1813 grade9 &minus; 0.1251 has_siblings + 0.0655 standard_living
+    </div>
 
-<p>Additional covariates included: gender (female, 1 = female, 0 = male), grade level (grade9, 1 = 9th grade, 0 = 7th grade), family size (has_siblings, 1 = has one or more siblings, 0 = no siblings), and living areas (urbanicity_level, including urban core, semi-urban, and rural). Household composition was captured by standard_living, coded as 1 for students living with both mother and father (with or without grandparents), and 0 for all other combinations.</p>
+    <p>An F-test comparing the two models yielded a p-value of 0.0006, indicating that the interaction terms significantly improve fit. Model 2 is therefore preferred. The chart below illustrates predicted participation frequencies from Model 2 by parental education, urbanicity, sibling status, and grade. Urban levels 1, 2, and 3 denote urban core, semi-urban, and rural respectively; circle lines represent no siblings; triangle lines represent having siblings; solid lines represent grade 7 and dashed lines grade 9.</p>
 
-<p>Binary logistic regressions were run with and without interaction terms between parental education and urbanicity. Based on BIC, the model without interactions fits better (the BIC of the model without interactions is 11574.48 while that with interactions is 11603.5).</p>
+    <figure class="figure-full">
+      <img src="Predicted Participation Frequency by Parental Education.png" alt="Line chart showing predicted museum participation frequency as a function of parental education, with separate lines for urban, semi-urban, and rural areas, and for grade and sibling status" />
+      <figcaption>Figure 7. Predicted participation frequency by parental education (Model 2). The rural penalty is most pronounced at lower education levels; higher parental education partially offsets regional disadvantage.</figcaption>
+    </figure>
 
-<p>The estimated equation of the model without interactions is:</p>
-<img src="Binary Logit without Interactions_1.png" alt="Binary Logit without Interactions_1" />
+    <p>From Model 2, participation frequency decreases markedly as urbanicity declines. However, higher parental education partially compensates for this regional disadvantage, and its positive effect grows stronger in lower-urbanicity settings. Female students, 7th graders, only children, and those in standard family structures all show higher predicted participation.</p>
+  </section>
 
-<p>This model suggests that increases in parental education, urbanicity, female gender, earlier grade level, absence of siblings, and living in standard family structures all raise the likelihood of higher cultural participation.</p>
+  <!-- 6 Binary logit -->
+  <section id="binary-logit">
+    <h2>6. Binary Logistic Model</h2>
 
-<p>The predicted probability of participation is:</p>
-<img src="Binary Logit without Interactions_2.png" alt="Binary Logit without Interactions_2" />
+    <p>The dependent variable was recoded into a binary outcome: "Never" and "Once a year" (67.5% of the sample) were coded as 0 (none or low participation); all higher frequencies were coded as 1 (higher participation). Parental education was grouped into three levels: low (junior high school and below, ≤9 years; 50.2%), medium (technical secondary, vocational, or senior high school, ~12 years; 28.3%), and high (junior college and above, ≥15 years; 21.4%).</p>
 
-<h2>Multinomial Logistic Regression Model</h2> 
+    <figure class="figure-full">
+      <img src="Actual Binary Participation by Parental Education.png" alt="Stacked bar chart showing the proportion of low and higher participation across low, medium, and high parental education groups" />
+      <figcaption>Figure 8. Actual binary participation rates by parental education level. Higher participation rises consistently with educational attainment.</figcaption>
+    </figure>
 
-<p>For binary logistic regression, I recoded the dependent variable, cultural participation frequency, into a binary outcome: (1) Low participation — responses of “Never” and “Once a year,” occupying 67.5%, (2) Middle participation — responses of “Once every half year”, and (3) High participation — responses of “Once a month” or more frequently. Parental education and other variables were treated in the same way as in binary logistic regression. The bar chart below presents the respective proportions of low, middle, high participation in these three parental education levels.</p>
-  
-<figure class="full-width-image">
-  <img src="Actual Participation Distribution by Parental Education.png" alt="Actual Participation Distribution by Parental Education">
-  <figcaption>Figure 9. Actual Participation Distribution by Parental Education</figcaption>
-</figure>
+    <p>Binary logistic regressions were run with and without interaction terms between parental education and urbanicity. Based on BIC, the model without interactions fits better (BIC without: 11,574.48; with: 11,603.5). The estimated equation and the predicted probability formula are presented below.</p>
 
-<p>Multinomial logistic regressions were performed with and without interaction terms. Based on BIC, the model without interactions was preferred (the BIC of the model without interactions is 13333.91 while that with interactions is 13395.15).</p>
+    <p>Estimated log-odds equation:</p>
+    <img class="formula-img" src="Binary Logit without Interactions_1.png" alt="Binary logistic regression equation showing log-odds of higher participation as a function of parental education, urbanicity, gender, grade, siblings, and living arrangement" />
 
-<p>Therefore, we choose the model without interactions:</p>
+    <p>Predicted probability of higher participation:</p>
+    <img class="formula-img" src="Binary Logit without Interactions_2.png" alt="Formula converting log-odds to predicted probability using the logistic transformation" />
 
-<p>For predicting moderate participation (y=1) compared to low,</p>
-<img src="Multinomial Logit without Interactions_1.png" alt="Multinomial Logit without Interactions_1" />
+    <p>The model shows that higher parental education, urban residence, female gender, earlier grade level, absence of siblings, and standard family structure all raise the probability of higher cultural participation.</p>
+  </section>
 
-<p>For predicting high participation (y=2) compared to low,</p>
-<img src="Multinomial Logit without Interactions_2.png" alt="Multinomial Logit without Interactions_2" />
+  <!-- 7 Multinomial -->
+  <section id="multinomial">
+    <h2>7. Multinomial Logistic Regression Model</h2>
 
-<p>Similar to previous models, higher parental education, higher urbanicity, female gender, earlier grade, absence of siblings, and standard family living arrangements are associated with higher odds of moderate and high participation relative to low participation.</p>
+    <p>Participation was recoded into three categories: low ("Never" or "Once a year"; 67.5%), moderate ("Once every half year"), and high ("Once a month" or more frequently). Parental education and other covariates were treated identically to the binary model.</p>
 
-<p>Predicted probabilities are computed by:</p>
-<div class="image-row">
-  <figure class="image-box">
-    <img src="Multinomial Logit without Interactions_3_1.png" alt="Multinomial Logit without Interactions_3_1">
-  </figure>
-  <figure class="image-box">
-    <img src="Multinomial Logit without Interactions_3_2.png" alt="Multinomial Logit without Interactions_3_2">
-  </figure>
-  <figure class="image-box">
-    <img src="Multinomial Logit without Interactions_3_3.png" alt="Multinomial Logit without Interactions_3_3">
-  </figure>  
-</div>
+    <figure class="figure-full">
+      <img src="Actual Participation Distribution by Parental Education.png" alt="Grouped bar chart showing proportions of low, moderate, and high participation across three parental education levels" />
+      <figcaption>Figure 9. Actual participation distribution by parental education level.</figcaption>
+    </figure>
 
-<p>Z1= -1.9683 + 0.4472 parent_edu_middle + 0.8168 parent_edu_high + 0.1981 female - 0.2983 grade9 - 0.4259 has_siblings + 0.2592 standard_living + 0.5915 semi_urban + 0.6607 urban</p>
-<p>Z2=-2.466 + 0.2178 parent_edu_middle + 0.3668 parent_edu_high + 0.042 female - 0.4236 grade9 - 0.1055 has_siblings + 0.302 standard_living + 0.5846 semi_urban + 0.9812 urban</p>
+    <p>Multinomial logistic regressions were performed with and without interaction terms. Based on BIC, the model without interactions was preferred (BIC without: 13,333.91; with: 13,395.15).</p>
 
-<h2>Reflection on Interaction Terms</h2>
-<p>A particularly interesting finding is the disappearance of the interaction between parental education and living area after cleaning and recoding. Before adjusting for family composition (which resulted in the loss of ~10,000 cases) and collapsing parental education into three categories, the interaction between rural status and parental education remained salient across models, including both OLS and different logit regressions. After cleaning, the rural proportion dropped from 41% to 35.6%, and the categorical collapse of educational levels reduced variability. Both factors likely contributed to the loss of statistical significance for the interaction. This reflects how data cleaning and variable transformation can sometimes obscure meaningful relational structures in social data.</p>
+    <p>For predicting moderate participation (y = 1) relative to low:</p>
+    <img class="formula-img" src="Multinomial Logit without Interactions_1.png" alt="Multinomial logistic regression equation for moderate versus low participation" />
 
-<h2>Conclusion</h2>
-  
-<p>This study examines how parental education and geographic location shape children’s cultural participation in China, using survey data from CEPS. Consistent with previous research, parental education and living area emerge as most cogent predictors of participation across all models. Higher educational attainment among parents and urban residence significantly increase children’s frequency of museum and cultural visits, even after controlling for gender, grade, and household structure.</p>
+    <p>For predicting high participation (y = 2) relative to low:</p>
+    <img class="formula-img" src="Multinomial Logit without Interactions_2.png" alt="Multinomial logistic regression equation for high versus low participation" />
 
-<p>What’s more, OLS and logistic regressions all reveal that being in lower grade, having no siblings, living with both parents or with parents and grandparents further elevate participation likelihoods. Importantly, interaction terms between parental education and urbanicity, initially salient, disappeared after dataset cleaning and variable categorization. This suggests that reduced rural representation and the collapse of educational levels into broad categories may obscure subtle correlation between parental education and regions.</p>
+    <p>Predicted probabilities are computed as follows:</p>
+    <div class="formula-row">
+      <figure><img src="Multinomial Logit without Interactions_3_1.png" alt="Formula for probability of low participation" /></figure>
+      <figure><img src="Multinomial Logit without Interactions_3_2.png" alt="Formula for probability of moderate participation" /></figure>
+      <figure><img src="Multinomial Logit without Interactions_3_3.png" alt="Formula for probability of high participation" /></figure>
+    </div>
 
-<p>The biggest limitation of this study is failing to consider museum visits organized by schools.</p>
+    <p>The latent index scores for the two contrasts are:</p>
+    <div class="model-eq">
+      Z<sub>1</sub> = &minus;1.9683 + 0.4472 parent_edu_middle + 0.8168 parent_edu_high + 0.1981 female<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&minus; 0.2983 grade9 &minus; 0.4259 has_siblings + 0.2592 standard_living<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0.5915 semi_urban + 0.6607 urban<br><br>
+      Z<sub>2</sub> = &minus;2.466 + 0.2178 parent_edu_middle + 0.3668 parent_edu_high + 0.042 female<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&minus; 0.4236 grade9 &minus; 0.1055 has_siblings + 0.302 standard_living<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0.5846 semi_urban + 0.9812 urban
+    </div>
 
-<p>Overall, we conclude that despite policy efforts to democratize museum access, cultural participation remains closely tied to family background and spatial advantage. As museums continue to expand as sites of learning and identity-building, addressing these underlying disparities—particularly through more inclusive design and outreach—is critical to ensuring equitable access. Besides eliminating admission fees, other measures such as reducing course load, supporting children from single-parent families or children brought up by relatives other than parents, financing cultural programs in disadvantaged areas need to be taken.</p>
+    <p>Consistent with the previous models, higher parental education, urban residence, female gender, earlier grade, absence of siblings, and standard family living arrangements are all associated with higher odds of moderate and high participation relative to low participation.</p>
+  </section>
 
-<h2>References</h2>
-<p>You can download the full list of references here:</p>
-<p><a href="References.pdf" target="_blank">Download References (PDF)</a></p>
-  
+  <!-- 8 Interaction -->
+  <section id="interaction">
+    <h2>8. Reflection on Interaction Terms</h2>
+
+    <p>A particularly interesting finding is the disappearance of the interaction between parental education and living area after cleaning and variable recoding. Before adjusting for family composition — which resulted in the loss of approximately 10,000 cases — and before collapsing parental education into three broad categories, the interaction between rural status and parental education remained salient across OLS and logistic models alike.</p>
+
+    <p>After cleaning, the rural proportion dropped from 41% to 35.6%, and categorical aggregation of educational levels reduced variability. Both factors likely contributed to the loss of statistical significance for the interaction term. This reflects how data cleaning and variable transformation can sometimes obscure meaningful relational structures in social data — a methodological caution worth noting for future research using large survey datasets.</p>
+  </section>
+
+  <!-- 9 Conclusion -->
+  <section id="conclusion">
+    <h2>9. Conclusion</h2>
+
+    <p>This study examines how parental education and geographic location shape children's cultural participation in China, using CEPS survey data. Consistent with prior research, parental education and living area emerge as the most cogent predictors of participation across all models. Higher educational attainment among parents and urban residence significantly increase children's frequency of museum and cultural visits, even after controlling for gender, grade, and household structure.</p>
+
+    <p>OLS and logistic regressions converge on a further finding: being in a lower grade, having no siblings, living with both parents or with parents and grandparents, and residing in an urban area all elevate participation likelihoods. Interaction terms between parental education and urbanicity — initially salient in the full dataset — disappeared after dataset cleaning and variable categorization, suggesting that reduced rural representation and the collapse of educational levels into broad categories may obscure subtler correlations between parental education and region.</p>
+
+    <div class="finding-box">
+      <p>The biggest limitation of this study is its omission of school-organized museum visits, which may contribute substantially to children's cultural exposure, particularly in less advantaged areas where family-initiated visits are rare.</p>
+    </div>
+
+    <p>Overall, despite policy efforts to democratize museum access, cultural participation remains closely tied to family background and spatial advantage. As museums continue to expand as sites of learning and identity-building, addressing these underlying disparities — through more inclusive design, outreach, and programming — is critical to ensuring equitable access. Beyond eliminating admission fees, measures such as reducing course load, supporting children from single-parent or non-parental care arrangements, and financing cultural programs in disadvantaged areas deserve further attention.</p>
+  </section>
+
+  <!-- 10 References -->
+  <section id="references">
+    <h2>10. References</h2>
+    <p>The full bibliography is available for download below.</p>
+    <a class="references-link" href="References.pdf" target="_blank" rel="noopener">Download full references (PDF) ↓</a>
+  </section>
+
+</main>
+
+<footer>
+  <p>Yifang Xia &nbsp;·&nbsp; Research Essay &nbsp;·&nbsp; All rights reserved</p>
+</footer>
+
 </body>
 </html>
