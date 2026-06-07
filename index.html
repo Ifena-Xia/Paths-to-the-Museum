@@ -410,7 +410,7 @@
 
     <div class="note-box"><strong>What the outcome measures.</strong> The participation variable is the parent's report of how often the child visits "museums, zoos, science museums, and the like" over the past year. It therefore captures informal cultural and educational outings broadly, not art or history museums alone. Where the text says "museum participation," read it as this broader disposition. If zoos and science centers are less stratified by parental education than art or history museums, the parental-education effect estimated here is, if anything, a conservative lower bound for museums proper.</div>
 
-    <p>Participation frequency was coded on a 1 to 6 scale, from "never" to "more than once a week." Parental education is the higher of the two parents' schooling, in years. Several variables are binary: <em>female</em>, <em>grade 9</em>, <em>has_siblings</em> (one or more siblings, 49.7 percent), and <em>both-parent family</em> (the child lives with both parents, siblings allowed, about 82 percent). Urbanicity has three levels: urban core (36.3 percent), semi-urban (28.1 percent), and rural (35.6 percent).</p>
+    <p>Participation frequency was coded on a 1 to 6 scale, from "never" to "more than once a week." Parental education is the higher of the two parents' schooling, in years. Several variables are binary: <em>female</em>, <em>grade 9</em>, and <em>both-parent family</em> (the child lives with both parents, siblings allowed, about 82 percent). The number of siblings (<em>n_siblings</em>) enters as a count, top-coded at three or more, rather than a yes-or-no flag, since it is family size, not the mere presence of a sibling, that dilutes parental resources: about half the children are only children (50.3 percent), 37.6 percent have one sibling, 9.4 percent have two, and 2.7 percent have three or more, with the largest households (up to twelve siblings) concentrated in regions where the one-child policy did not bind. Top-coding at three keeps those rare large families from dominating the slope while still distinguishing them as a category. Urbanicity has three levels: urban core (36.3 percent), semi-urban (28.1 percent), and rural (35.6 percent).</p>
 
     <div class="note-box">Because China's hukou system often leaves children in their registered hometown while parents migrate, and because the survey records the left-behind arrangement for only 3,299 families, sibling counts are taken from the student's report regardless of co-residence, to avoid undercounting siblings in migrant families. The resulting measurement error is noted as a limitation.</div>
 
@@ -423,69 +423,74 @@
   <section id="ols">
     <h2>5. OLS Model</h2>
     <p><strong>Model 1</strong> regresses participation frequency on the predictors without interactions:</p>
-    <div class="eqn">\[ \widehat{\text{freq}} = 1.680 + 0.057\,\text{edu} - 0.124\,\text{semi} - 0.481\,\text{rural} + 0.050\,\text{female} - 0.187\,\text{grade9} - 0.157\,\text{siblings} + 0.192\,\text{both\_parent} \]</div>
+    <div class="eqn">\[ \widehat{\text{freq}} = 1.696 + 0.056\,\text{edu} - 0.127\,\text{semi} - 0.479\,\text{rural} + 0.054\,\text{female} - 0.185\,\text{grade9} - 0.124\,\text{n\_siblings} + 0.186\,\text{both\_parent} \]</div>
     <p>Because the return to parental education may differ by place, <strong>Model 2</strong> adds interactions between parental education and urbanicity:</p>
-    <div class="eqn">\[ \widehat{\text{freq}} = 1.900 + 0.040\,\text{edu} - 0.470\,\text{semi} - 0.895\,\text{rural} + 0.029\,(\text{edu}\times\text{semi}) + 0.038\,(\text{edu}\times\text{rural}) + 0.050\,\text{female} - 0.182\,\text{grade9} - 0.162\,\text{siblings} + 0.191\,\text{both\_parent} \]</div>
-    <p>An F-test prefers Model 2 (p = 0.0009): the interactions improve fit. The continuous education scale matters here, a point Section 8 returns to.</p>
+    <div class="eqn">\[ \widehat{\text{freq}} = 1.910 + 0.039\,\text{edu} - 0.474\,\text{semi} - 0.880\,\text{rural} + 0.029\,(\text{edu}\times\text{semi}) + 0.037\,(\text{edu}\times\text{rural}) + 0.054\,\text{female} - 0.181\,\text{grade9} - 0.126\,\text{n\_siblings} + 0.185\,\text{both\_parent} \]</div>
+    <p>An F-test prefers Model 2 (F(2, 9751) = 6.83, p = 0.0011): the interactions improve fit. The continuous education scale matters here, a point Section 8 returns to.</p>
 
     <figure class="figure-full">
       <img src="paths_museum_figA_predicted_frequency.png" alt="Three small-multiple line charts, one per urbanicity level, showing predicted participation frequency rising with parental education, with separate lines for grade 7 and grade 9" />
       <figcaption>Figure 2. Predicted participation frequency by parental education (Model 2), faceted by urbanicity. The rural penalty is largest at low parental education, and the education slope is steepest in rural areas, so schooling partly closes the place gap rather than widening it.</figcaption>
     </figure>
 
-    <p>Predicted frequency falls as places become less urban, but the slope on parental education is steepest in rural areas, so a rural child whose parents are highly educated is predicted to participate nearly as often as an urban peer. Girls, 7th graders, and children in both-parent families show somewhat higher predicted frequency. The sibling and both-parent coefficients should be read together, for reasons explained in Section 8.</p>
+    <p>Predicted frequency falls as places become less urban, but the slope on parental education is steepest in rural areas, so a rural child whose parents are highly educated is predicted to participate nearly as often as an urban peer. Girls, 7th graders, and children in both-parent families show somewhat higher predicted frequency. Each additional sibling lowers it by about 0.12, and living with both parents raises it by about 0.19; Section 8 explains why these enter as separate, additive terms.</p>
   </section>
 
   <section id="binary-logit">
     <h2>6. Binary Logistic Model</h2>
-    <p>The outcome is recoded as 0 for "never" or "once a year" (67.5 percent) and 1 for any higher frequency. Parental education is grouped into three bands: low (&le; 9 years, 50.2 percent), medium (about 12 years, 28.4 percent), and high (&ge; 15 years, 21.4 percent). By BIC, the model without interactions fits better (11,554 versus 11,583), consistent with the categorized education scale washing out the interaction seen in Model 2.</p>
+    <p>The outcome is recoded as 0 for "never" or "once a year" (67.5 percent) and 1 for any higher frequency. Parental education is grouped into three bands: low (&le; 9 years, 50.2 percent), medium (about 12 years, 28.4 percent), and high (&ge; 15 years, 21.4 percent). By BIC, the model without interactions fits better (11,541 versus 11,569), consistent with the categorized education scale washing out the interaction seen in Model 2.</p>
     <p>Log-odds of higher participation (base: low education, rural):</p>
-    <div class="eqn">\[ \ln\frac{P}{1-P} = -1.522 + 0.364\,\text{edu}_{\text{mid}} + 0.646\,\text{edu}_{\text{high}} + 0.629\,\text{semi} + 0.788\,\text{urban} + 0.164\,\text{female} - 0.337\,\text{grade9} - 0.297\,\text{siblings} + 0.288\,\text{both\_parent} \]</div>
+    <div class="eqn">\[ \ln\frac{P}{1-P} = -1.507 + 0.354\,\text{edu}_{\text{mid}} + 0.636\,\text{edu}_{\text{high}} + 0.621\,\text{semi} + 0.783\,\text{urban} + 0.171\,\text{female} - 0.335\,\text{grade9} - 0.239\,\text{n\_siblings} + 0.280\,\text{both\_parent} \]</div>
     <p>and the predicted probability follows the logistic transform:</p>
     <div class="eqn">\[ P(\text{higher}) = \frac{1}{1 + e^{-\eta}}, \qquad \eta = \ln\frac{P}{1-P} \]</div>
-    <p>Higher parental education, urban residence, being female, an earlier grade, and a both-parent family all raise the probability of higher participation.</p>
+    <p>Higher parental education, urban residence, being female, an earlier grade, and a both-parent family all raise the probability of higher participation, while each additional sibling lowers it.</p>
   </section>
 
   <section id="multinomial">
     <h2>7. Multinomial Logistic Model</h2>
     <p>Participation is split three ways: low ("never" or "once a year," 67.5 percent), moderate ("once every half year"), and high ("once a month" or more). The covariates match the binary model, and again BIC prefers the model without interactions. The two latent contrasts, relative to low participation, are:</p>
     <div class="eqn">\[ \begin{aligned}
-      Z_1 &= -1.954 + 0.402\,\text{edu}_{\text{mid}} + 0.764\,\text{edu}_{\text{high}} + 0.225\,\text{female} - 0.291\,\text{grade9} - 0.411\,\text{siblings} + 0.222\,\text{both\_parent} + 0.640\,\text{semi} + 0.698\,\text{urban} \\[4pt]
-      Z_2 &= -2.577 + 0.305\,\text{edu}_{\text{mid}} + 0.442\,\text{edu}_{\text{high}} + 0.064\,\text{female} - 0.412\,\text{grade9} - 0.114\,\text{siblings} + 0.400\,\text{both\_parent} + 0.600\,\text{semi} + 0.929\,\text{urban}
+      Z_1 &= -1.964 + 0.434\,\text{edu}_{\text{mid}} + 0.812\,\text{edu}_{\text{high}} + 0.203\,\text{female} - 0.296\,\text{grade9} - 0.328\,\text{n\_siblings} + 0.250\,\text{both\_parent} + 0.588\,\text{semi} + 0.660\,\text{urban} \\[4pt]
+      Z_2 &= -2.416 + 0.200\,\text{edu}_{\text{mid}} + 0.339\,\text{edu}_{\text{high}} + 0.050\,\text{female} - 0.424\,\text{grade9} - 0.127\,\text{n\_siblings} + 0.295\,\text{both\_parent} + 0.570\,\text{semi} + 0.967\,\text{urban}
     \end{aligned} \]</div>
     <p>where \(Z_1\) is moderate-versus-low and \(Z_2\) is high-versus-low. The predicted probabilities are the softmax of these contrasts:</p>
     <div class="eqn">\[ P(\text{low}) = \frac{1}{1+e^{Z_1}+e^{Z_2}}, \quad P(\text{moderate}) = \frac{e^{Z_1}}{1+e^{Z_1}+e^{Z_2}}, \quad P(\text{high}) = \frac{e^{Z_2}}{1+e^{Z_1}+e^{Z_2}} \]</div>
 
     <figure class="figure-full">
       <img src="paths_museum_figB_multinomial_mix.png" alt="Stacked bar chart showing that as parental education rises from low to high, the predicted probability of low participation falls while moderate and high participation grow" />
-      <figcaption>Figure 3. Predicted participation mix by parental-education band (multinomial logit). As parents' schooling rises, the mass shifts out of low participation and into moderate and high.</figcaption>
+      <figcaption>Figure 3. Predicted participation mix by parental-education band (multinomial logit). As parents' schooling rises, the mass shifts out of low participation and chiefly into moderate, with the high tier holding roughly steady.</figcaption>
     </figure>
     <p>The picture is consistent across all three models: parental education, urban residence, being female, an earlier grade, and a both-parent family are associated with higher participation.</p>
   </section>
 
   <section id="interaction">
     <h2>8. Reflection on Method</h2>
-    <p>A particularly interesting finding is the disappearance of the interaction between parental education and living area after cleaning and recoding. Before adjusting for family composition (which resulted in the loss of ~10,000 cases) and collapsing parental education into three categories, the interaction between rural status and parental education remained salient across models.</p>
+    <p>Two methodological points deserve their own section, because each is a finding in its own right.</p>
 
-    <p>It is tempting to blame data cleaning, but the interaction vanished because of categorization, not cleaning. Holding the cleaned sample and the outcome fixed and varying only how finely education is measured, the education-by-place interaction is significant in the OLS, then disappears in the logistic models:</p>
+    <p><strong>The interaction vanished because of categorization, not cleaning.</strong> The education-by-place interaction is significant in the OLS, then disappears in the logistic models. It is tempting to blame data cleaning, but the data are clear once the cause is isolated. Holding the cleaned sample and the outcome fixed and varying only how finely education is measured:</p>
     <table class="frames">
       <tr><th>Model</th><th>Education scale</th><th>Interaction with urbanicity</th><th>Verdict</th></tr>
-      <tr><td>OLS</td><td>continuous (years)</td><td>F(2, 9751) = 7.07, p = 0.0009</td><td>significant</td></tr>
-      <tr><td>OLS</td><td>3 categories</td><td>F(4, 9748) = 1.85, p = 0.12</td><td>not significant</td></tr>
-      <tr><td>Binary logit</td><td>continuous (years)</td><td>LR &chi;&sup2;(2) = 13.6, p = 0.001</td><td>significant</td></tr>
+      <tr><td>OLS</td><td>continuous (years)</td><td>F(2, 9751) = 6.83, p = 0.0011</td><td>significant</td></tr>
+      <tr><td>OLS</td><td>3 categories</td><td>F(4, 9748) = 1.90, p = 0.11</td><td>not significant</td></tr>
+      <tr><td>Binary logit</td><td>continuous (years)</td><td>LR &chi;&sup2;(2) = 13.2, p = 0.001</td><td>significant</td></tr>
       <tr><td>Binary logit</td><td>3 categories</td><td>dropped by BIC</td><td>not significant</td></tr>
     </table>
     <p>The interaction survives at the continuous scale in both model families and dies only when education is collapsed into three bands. Collapsing education compresses exactly the variation that interacts with place, so the right reading is that categorization, not cleaning, obscured a real relationship. The continuous specification should be preferred when the interaction is of interest.</p>
 
     <p><strong>Cleaning still cost representativeness.</strong> That said, adjusting for family composition dropped roughly 10,000 cases, and the rural share fell from 41 percent to 35.6 percent. Those drops are unlikely to be random: migrant and left-behind families, who are disproportionately rural, are exactly the ones with incomplete family-composition records. So the cleaned sample buys internal consistency at the price of external validity, and the estimates here may understate rural disadvantage. This is a separate limitation from the interaction point above, and both should be kept in view.</p>
 
-    <div class="note-box"><strong>A note on the both-parent and sibling variables.</strong> An earlier coding counted a child as living in a both-parent family only when both parents were present and no sibling co-resided, which made the variable correlate strongly and negatively with <em>has_siblings</em> (r = &minus;0.71): an only child with both parents was almost always captured by it. The two variables shared variance, and the coefficient was small and only marginally significant (p = 0.07). The models reported here define the both-parent family on parental presence alone, regardless of siblings (about 82 percent of the sample, in line with the living-arrangement breakdown). That decorrelates the two (r = &minus;0.11) and gives a clean, significant estimate for each: a both-parent premium of about +0.19 and a sibling penalty of about &minus;0.16 on the 1 to 6 scale. The label is descriptive. It marks the residential baseline most likely to show higher participation and carries no judgment about single-parent, grandparent, or other family structures.</div>
+    <div class="note-box"><strong>A note on the sibling and both-parent variables.</strong> These are two distinct dimensions of family structure, and the models treat them as such. An earlier coding had bundled them, counting a child as living in a both-parent family only when both parents were present and no sibling co-resided, which made that variable correlate strongly and negatively with sibling status (r = &minus;0.71) and suppressed both coefficients. Defining the both-parent family on parental presence alone (about 82 percent of the sample) decorrelates the two (r = &minus;0.11), and their interaction is not significant (p = 0.47), so the two act additively: the sibling effect is about the same size whether or not both parents are present, and the both-parent coefficient (about 0.19) barely moves whether siblings enter as a binary, a raw count, a capped count, or a set of category dummies, which is the clearest sign that the two dimensions are not confounded. The sibling term enters as a count rather than a binary, because resource dilution scales with family size. This matters in the Chinese case, where the one-child policy left roughly half the sample as only children while minority and rural families are often larger, so collapsing a four-child household and a one-child household into a single "has siblings" category would discard exactly that variation; a count also fits better than the binary across all three models (in the OLS, BIC falls from 31,221 to 31,204). The count is top-coded at three or more, because only 2.7 percent of children have that many siblings and the per-sibling effect is not linear out in that thin tail: it deepens through two siblings and then reverts, so a raw count would let a handful of very large families set the slope. Each additional sibling, up to three, lowers predicted frequency by about 0.12 on the 1 to 6 scale, and living with both parents raises it by about 0.19. The both-parent label is descriptive: it marks the residential baseline most likely to show higher participation and carries no judgment about single-parent, grandparent, or other structures.</div>
+
+    <figure>
+      <img src="paths_museum_figFamily.png" alt="Line chart of mean visit frequency against number of siblings (0, 1, 2, 3+), with one line for children living with both parents and one for single-parent or other arrangements. Both lines decline as siblings increase and stay roughly parallel, the both-parent line sitting consistently above the other." />
+      <figcaption>Figure 4. Parental presence and sibling count act as two separate dimensions. Each added sibling lowers participation by roughly the same amount in both-parent and single-parent homes (the lines stay close to parallel), and the both-parent line sits above throughout. The slight uptick at three or more siblings rests on few cases and should not be over-read.</figcaption>
+    </figure>
   </section>
 
   <section id="conclusion">
     <h2>9. Conclusion</h2>
     <p>Using CEPS data, this study asks how parental education and place shape children's cultural participation in China. Across all three models, parental education and urbanicity are the most consistent predictors. Higher parental schooling and urban residence are associated with significantly more frequent museum and cultural visits, even after adjusting for gender, grade, and household structure, and the education-by-place interaction shows that schooling matters most where place matters least, partly closing the rural gap rather than widening it.</p>
-    <p>The models also agree that an earlier grade, a both-parent family, and urban residence are associated with higher participation. With the both-parent variable defined on parental presence alone, the sibling and both-parent effects separate cleanly, and the direction is stable.</p>
+    <p>The models also agree that an earlier grade, a both-parent family, and urban residence are associated with higher participation, and that each additional sibling is associated with less. With parental presence and sibling count entered as separate, additive terms, the two effects separate cleanly and their direction is stable.</p>
 
     <div class="finding-box">
       <p>Two limitations bound these claims. First, the outcome bundles museums with zoos and science centers, so it measures informal cultural participation broadly rather than museum attendance alone. Second, the study omits school-organized visits, which may matter most in less advantaged areas where family-initiated visits are rare. Both would tend to make these estimates conservative for museums proper.</p>
