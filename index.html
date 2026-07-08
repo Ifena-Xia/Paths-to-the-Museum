@@ -358,7 +358,7 @@
 <figure style="margin:0;">
   <img class="hero-image" src="Path-museum.png" alt="A path leading toward the entrance of a museum" />
 </figure>
-<p class="hero-caption">Captured by my friend Jingyuan Liu &nbsp;&middot;&nbsp; thank you.</p>
+<p class="hero-caption">Captured by my friend <a href="https://www.senscape.tech/">Jingyuan Liu</a>, thank you!</p>
 
 <header class="site-header" role="banner">
   <div class="site-header-inner">
@@ -444,7 +444,7 @@
     <h2>6. Binary Logistic Model</h2>
     <p>The outcome is recoded as 0 for "never" or "once a year" (67.5 percent) and 1 for any higher frequency. Parental education is grouped into three bands: low (&le; 9 years, 50.2 percent), medium (about 12 years, 28.4 percent), and high (&ge; 15 years, 21.4 percent). By BIC, the model without interactions fits better (11,541 versus 11,569), consistent with the categorized education scale washing out the interaction seen in Model 2.</p>
     <p>Log-odds of higher participation (base: low education, rural):</p>
-    <div class="eqn">\[ \ln\frac{P}{1-P} = -1.507 + 0.354\,\text{edu}_{\text{mid}} + 0.636\,\text{edu}_{\text{high}} + 0.621\,\text{semi} + 0.783\,\text{urban} + 0.171\,\text{female} - 0.335\,\text{grade9} - 0.239\,\text{n\_siblings} + 0.280\,\text{both\_parent} \]</div>
+    <div class="eqn">\[ \ln\frac{P}{1-P} = -1.507 + 0.354\,\text{edu}_{\text{mid}} + 0.636\,\text{edu}_{\text{high}} + 0.621\,\text{semi} + 0.783\,\text{urban} + 0.171\,\text{female} - 0.335\,\text{grade9} - 0.239\,\text{siblings} + 0.280\,\text{both_parent} \]</div>
     <p>and the predicted probability follows the logistic transform:</p>
     <div class="eqn">\[ P(\text{higher}) = \frac{1}{1 + e^{-\eta}}, \qquad \eta = \ln\frac{P}{1-P} \]</div>
     <p>Higher parental education, urban residence, being female, an earlier grade, and a both-parent family all raise the probability of higher participation, while each additional sibling lowers it.</p>
@@ -454,8 +454,8 @@
     <h2>7. Multinomial Logistic Model</h2>
     <p>Participation is split three ways: low ("never" or "once a year," 67.5 percent), moderate ("once every half year"), and high ("once a month" or more). The covariates match the binary model, and again BIC prefers the model without interactions. The two latent contrasts, relative to low participation, are:</p>
     <div class="eqn">\[ \begin{aligned}
-      Z_1 &= -1.964 + 0.434\,\text{edu}_{\text{mid}} + 0.812\,\text{edu}_{\text{high}} + 0.203\,\text{female} - 0.296\,\text{grade9} - 0.328\,\text{n\_siblings} + 0.250\,\text{both\_parent} + 0.588\,\text{semi} + 0.660\,\text{urban} \\[4pt]
-      Z_2 &= -2.416 + 0.200\,\text{edu}_{\text{mid}} + 0.339\,\text{edu}_{\text{high}} + 0.050\,\text{female} - 0.424\,\text{grade9} - 0.127\,\text{n\_siblings} + 0.295\,\text{both\_parent} + 0.570\,\text{semi} + 0.967\,\text{urban}
+      Z_1 &= -1.964 + 0.434\,\text{edu}_{\text{mid}} + 0.812\,\text{edu}_{\text{high}} + 0.203\,\text{female} - 0.296\,\text{grade9} - 0.328\,\text{siblings} + 0.250\,\text{both_parent} + 0.588\,\text{semi} + 0.660\,\text{urban} \\[4pt]
+      Z_2 &= -2.416 + 0.200\,\text{edu}_{\text{mid}} + 0.339\,\text{edu}_{\text{high}} + 0.050\,\text{female} - 0.424\,\text{grade9} - 0.127\,\text{siblings} + 0.295\,\text{both_parent} + 0.570\,\text{semi} + 0.967\,\text{urban}
     \end{aligned} \]</div>
     <p>where \(Z_1\) is moderate-versus-low and \(Z_2\) is high-versus-low. The predicted probabilities are the softmax of these contrasts:</p>
     <div class="eqn">\[ P(\text{low}) = \frac{1}{1+e^{Z_1}+e^{Z_2}}, \quad P(\text{moderate}) = \frac{e^{Z_1}}{1+e^{Z_1}+e^{Z_2}}, \quad P(\text{high}) = \frac{e^{Z_2}}{1+e^{Z_1}+e^{Z_2}} \]</div>
@@ -480,7 +480,7 @@
     </table>
     <p>The interaction survives at the continuous scale in both model families and dies only when education is collapsed into three bands.</p>
 
-    <p>Still, cleaning cost representativeness. That said, adjusting for family composition dropped roughly 10,000 cases, and the rural share fell from 41 percent to 35.6 percent. Those drops are unlikely to be random: migrant and left-behind families, who are disproportionately rural, are exactly the ones with incomplete family-composition records. So the cleaned sample buys internal consistency at the price of external validity, and the estimates here may understate rural disadvantage.</p>
+    <p>Still, cleaning cost representativeness. That said, adjusting for family composition dropped roughly 10,000 cases, and the rural share fell from 41 percent to 35.6 percent. Those drops are unlikely to be random: migration and left-behind families, who are more likely to be non-two-parent families and have lower parental education, are disproportionately rural. They might find it harder to submit a consistent record between guardians and children faced a complex questionnaire like this. So the cleaned sample buys internal consistency at the price of external validity, and the estimates here may understate rural disadvantage.</p>
 
     <div class="note-box"><strong>A note on the sibling and both-parent variables.</strong> These are two distinct dimensions of family structure, and the models treat them as such. An earlier coding had bundled them, counting a child as living in a both-parent family only when both parents were present and no sibling co-resided, which made that variable correlate strongly and negatively with sibling status (r = &minus;0.71) and suppressed both coefficients. Defining the both-parent family on parental presence alone regardless of having siblings or not (about 82 percent of the sample) decorrelates the two (r = &minus;0.11), and their interaction is not significant (p = 0.47), so the two act additively: the sibling effect is about the same size whether or not both parents are present, and the both-parent coefficient (about 0.19) barely moves whether siblings enter as a binary, a raw count, a capped count, or a set of category dummies, which is a clear sign that the two dimensions are not confounded. The sibling term enters as a count rather than a binary, because resource dilution scales with family size. This matters in the Chinese case, where the one-child policy left roughly half the sample as only children while minority and rural families are often larger, so collapsing a four-child household and a two-child household into a single "has siblings" category would discard exactly that variation; a count also fits better than the binary across all three models (in the OLS, BIC falls from 31,221 to 31,204). The count is top-coded at three or more, because only 2.7 percent of children have that many siblings and the per-sibling effect is not linear out in that thin tail: it deepens through two siblings and then reverts, so a raw count would let a handful of very large families set the slope. Each additional sibling, up to three, lowers predicted frequency by about 0.12 on the 1 to 6 scale, and living with both parents raises it by about 0.19. The both-parent label is descriptive: it marks the residential baseline most likely to show higher participation and carries no judgment about single-parent, grandparent, or other structures.</div>
 
